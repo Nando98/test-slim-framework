@@ -1,14 +1,21 @@
 <?php
+
+use App\Controllers\TestController;
 use Slim\App;
 
 require 'vendor/autoload.php';
 
 $app = new App();
+$container = $app->getContainer();
+
+$container['TestController'] = function ($container) {
+    return new TestController;
+};
 
 
 try {
 
-    include 'src/routes/test.php';
+    include 'app/routes/test.php';
 
     $app->run();
 
