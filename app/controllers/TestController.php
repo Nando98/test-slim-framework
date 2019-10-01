@@ -2,20 +2,31 @@
 
 namespace App\Controllers;
 
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Container\ContainerInterface;
+use Slim\Http\Request;
+use Slim\Http\Response;
+use PDOConnection;
 
-class TestController {
+class TestController
+{
+
+    protected $container;
 
 
-    public function home($request, $response) {
-        /*$data = array(
-            'ok' => true,
-            'message' => 'Servicio de prueba con slim'
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    public function getStatus(Request $request, Response $response)
+    {
+        $status = PDOConnection::getStatus();
+
+        $data = array(
+            'status' => $status
         );
 
-        $response = $response->withJson($data);
-        return $response;*/
-        return "Hola mundo!";
+        $response = $response->withJson(\Converter::convert_from_latin1_to_utf8_recursively($data));
+        return $response;
     }
 }

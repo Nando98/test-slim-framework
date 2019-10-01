@@ -1,21 +1,8 @@
 <?php
 
-use App\Controllers\TestController;
-use Slim\App;
-
-require 'vendor/autoload.php';
-
-$app = new App();
-$container = $app->getContainer();
-
-$container['TestController'] = function ($container) {
-    return new TestController;
-};
-
+require __DIR__ . '/app/config/App.php';
 
 try {
-
-    include 'app/routes/test.php';
 
     $app->run();
 
@@ -23,7 +10,9 @@ try {
     echo json_encode(array(
         'ok' => false,
         'message' => 'Ocurrió un problema al iniciar la aplicación.',
-        'type' => $e->getTraceAsString()
+        'type' => array($e->getTrace())
     ));
 }
+
+
 

@@ -1,7 +1,10 @@
 {
     "require": {
         "slim/slim": "3.12",
-        "ext-json": "*"
+        "vrana/notorm": "dev-master",
+        "vlucas/phpdotenv": "^3.4",
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
