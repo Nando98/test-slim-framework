@@ -1,10 +1,8 @@
 <?php
 
 use Slim\App;
+use Slim\Container;
 use Dotenv\Dotenv;
-
-global $pdo;
-global $db;
 
 require __DIR__ . '/../../vendor/autoload.php';
 
@@ -12,12 +10,12 @@ require __DIR__ . '/../../vendor/autoload.php';
 $dotenv = Dotenv::create(__DIR__ . '/../../');
 $dotenv->load();
 
+// SETTINGS INIT
+$settings = __DIR__ . '/Settings.php';
+
 // SLIM INIT
-$app = new App([
-    'settings' => [
-        'displayErrorDetails' => getenv('PROJECT_DISPLAY_ERROR_DETAIL')
-    ]
-]);
+$container = new Container(array($settings));
+$app = new App($container);
 
 // MIDDLEWARE INIT
 require __DIR__ . '/Middleware.php';
